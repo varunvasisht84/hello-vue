@@ -1,13 +1,14 @@
 <template>
-  <div>
-    <v-card
+<div>
+    <div v-if="!selectedHero">
+    <v-card elevation="6" 
       class="mx-auto"
       max-width="344"
       outlined
       v-for="hero in heroes"
       v-bind:key="hero.id"
     >
-      <v-list-item three-line>
+      <v-list-item three-line >
         <v-list-item-content>
           <v-list-item-title class="text-h5 mb-1">
             {{ hero.firstName }}
@@ -21,11 +22,15 @@
       </v-list-item>
 
       <v-card-actions>
-        <v-btn outlined rounded text> Select Hero </v-btn>
+        <v-btn @click="selectHero(hero)" outlined rounded text> Select Hero </v-btn>
       </v-card-actions>
     </v-card>
-    <HeroDetail />
   </div>
+  <div>
+      <HeroDetail v-if="selectedHero" :hero="selectedHero"/>
+  </div>
+</div>
+  
 </template>
 
 <script>
@@ -34,11 +39,20 @@ import HeroDetail from "./HeroDetail.vue";
 
 export default {
   components: { HeroDetail },
+  
   data() {
     return {
       heroes: Data.heroes,
       villians: Data.villains,
+      //selectedHero: Data.heroes[0],
+      selectedHero: undefined,
     };
+  },
+
+  methods: {
+      selectHero(hero) {
+      this.selectedHero = hero;
+    },
   },
 };
 </script>
