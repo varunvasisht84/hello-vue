@@ -1,17 +1,18 @@
 <template>
   <div>
-    <ul id="example-1">
-      <li v-for="hero in heroes" v-bind:key="hero.id">
-        {{ hero.firstName }}
-      </li>
-    </ul>
+    <button v-for="hero in heroes" v-bind:key="hero.id">
+      {{ hero.firstName }}
+    </button>
+    <HeroDetail/>
   </div>
 </template>
 
 <script>
 import Data from "./db.json";
+import HeroDetail from './HeroDetail.vue';
 
 export default {
+  components: { HeroDetail },
   data() {
     return {
       heroes: Data.heroes,
